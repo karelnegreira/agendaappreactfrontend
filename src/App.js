@@ -1,10 +1,13 @@
 
 import './App.css';
 
-import {getContacts} from './api/ContactService'
-import { useEffect, useState } from 'react';
-import Header from "./components/Header";
 
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import ContactList from './components/ContactList'
+import { getContacts } from './api/ContactService'
+import Header from "./components/Header";
 
 function App() {
   const [data, setData] = useState({});
@@ -13,10 +16,10 @@ function App() {
   const getAllContacts = async (page = 0, size = 10) => {
     try {
       setCurrentPage(page);
-      const {data} = await getContacts(page, size);
+      const { data } = await getContacts(page, size);
       setData(data);
       console.log(data);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -25,11 +28,20 @@ function App() {
     getAllContacts();
   }, [])
 
-  const toogleModal = (show) => {}
+  const toogleModal = (show) => { console.log("I was clicked") }
 
   return (
     <>
-      <Header toogleModal={toogleModal} nbrOfContacts={50}/>
+      <Header toogleModal={toogleModal} nbrOfContacts={data.totalElements} />
+      <main className='main'>
+        <div>
+          <Routes>
+            <Route path="/" element={<Navigate to={'/contacts'} />} />
+            <Route path="/contacts" elements={<ContactList data={data} currentPage={currentPage} getAllContacts={getAllContacts} />} />
+
+          </Routes>
+        </div>
+      </main>
     </>
   );
 }
