@@ -3,6 +3,8 @@ import './App.css';
 
 import {getContacts} from './api/ContactService'
 import { useEffect, useState } from 'react';
+import Header from "./components/Header";
+
 
 function App() {
   const [data, setData] = useState({});
@@ -23,10 +25,12 @@ function App() {
     getAllContacts();
   }, [])
 
+  const toogleModal = (show) => {}
+
   return (
-    <div className="App">
-      <h1>Hola Karel</h1>
-    </div>
+    <>
+      <Header toogleModal={toogleModal} nbrOfContacts={50}/>
+    </>
   );
 }
 
