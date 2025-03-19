@@ -15,14 +15,14 @@ export async function getContact(id) {
 }
 
 export async function updateContact(contact) {
-    return await axios.post(API_CONST, contact);
+    return await axios.post(API_URL, contact);
 }
 
 export async function updatePhoto(formData) {
-    return await axios.put(`${API_CONST}/photo`, formData);
+    return await axios.put(`${API_URL}/photo`, formData);
 }
 
 export async function deleteContact(id) {
-    return await axios.delete(`${API_CONST}/${id}`);
+    return await axios.delete(`${API_URL}/${id}`);
 }
 
